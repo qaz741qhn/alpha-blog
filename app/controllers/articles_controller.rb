@@ -12,12 +12,13 @@ class ArticlesController < ApplicationController
     def new
         @article = Article.new
     end 
-    
+
     def edit
     end
 
     def create
-        @article = Article.new(article_params) 
+        @article = Article.new(article_params)
+        @article.user = User.new
         if @article.save
         #需要白名單可submit的內容，rails有保護機制
             flash[:notice] = "Article was created successfully."
