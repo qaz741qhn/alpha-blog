@@ -11,6 +11,7 @@
     
     <tbody>
         <% @articles.each do |article| %>
+        by <%= article.user.username if article.user %>
         <tr>
             <td><%= article.title %></td>
             <td><%= article.description %></td>
