@@ -15,7 +15,7 @@
     <%= f.password_field :password, placeholder: "Choose a password" %>
 </p>
 <p>
-    <%= f.submit "Sign up" %>
+    <%= f.submit(@user.new_record? ? "Sign up" : "Update account") %>
 </p>
 
 <% end %>
