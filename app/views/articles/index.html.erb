@@ -2,6 +2,10 @@
 
 <%= render 'article' %>
 
+<%= paginate @articles %>
+
+<% if logged_in? %>
 <p>
     <%= link_to 'Create new article', new_article_path %>
 </p>
+<% end %>

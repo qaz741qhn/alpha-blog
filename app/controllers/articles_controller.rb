@@ -1,12 +1,14 @@
 class ArticlesController < ApplicationController
     
     before_action :set_article, only: [:show, :edit, :update, :destroy]
+    before_action :require_user, except: [:show, :index]
+    before_action :require_same_user, only: [:edit, :update, :destroy]
     
     def show
     end
     
     def index
-        @articles = Article.all
+        @articles = Article.paginate(page: params[:page], per_page: 3)
     end
     
     def new
@@ -18,7 +20,7 @@ class ArticlesController < ApplicationController
 
     def create
         @article = Article.new(article_params)
-        @article.user = User.new
+        @article.user = current_user
         if @article.save
         #需要白名單可submit的內容，rails有保護機制
             flash[:notice] = "Article was created successfully."
@@ -51,5 +53,9 @@ class ArticlesController < ApplicationController
     
     def article_params
         params.require(:article).permit(:title, :description)
+    end
+
+    def require_same_user
+        redirect_to @article if current_user != @article.user && !current_user.admin?
     end
 end
