@@ -4,6 +4,9 @@
 <p><strong>Description: </strong><%= @article.description %></p>
 by <%= @article.user.username if @article.user %>
 <%= link_to gravatar_for(@article.user), user_path(@article.user) %>
+<% if @article.categories.any? %>
+  <p><%= render @article.categories %></p>
+<% end %>
 <% if logged_in? && (@article.user == current_user || current_user.admin?) %>
 <%= link_to 'Edit', edit_article_path(@article) %></td> |
 <%= link_to 'Delete', article_path(@article), method: :delete, data: { confirm: "Are you sure?" } %> |

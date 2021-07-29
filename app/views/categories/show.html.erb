@@ -1,0 +1,14 @@
+<h1>Showing category details</h1>
+
+<p><strong>Name: </strong><%= @category.name %></p>
+
+<h3>Articles</h3>
+<% if @category.articles.any? %>
+  <%= render 'articles/article' %>
+<% end %>
+
+<% if logged_in? && current_user.admin? %>
+<%= link_to 'Edit', edit_category_path(@category) %></td> |
+<%= link_to 'Delete', category_path(@category), method: :delete, data: { confirm: "Are you sure?" } %> 
+<% end %>
+<%= link_to 'Return to categories listing', categories_path %>

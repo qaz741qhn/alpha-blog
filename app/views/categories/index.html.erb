@@ -1,0 +1,26 @@
+<h1>Categories</h1>
+<table>
+    <thead>
+        <tr>
+            <th>Names</th>
+        </tr>
+    </thead>
+    
+    <tbody>
+        <% @categories.each do |category| %>
+        <tr>
+            <td><%= link_to category.name, category_path(category) %></td>
+            <td><%= pluralize(category.articles.count, "article") %></td>
+            <td>Created <%= time_ago_in_words(category.created_at) %> ago, edited <%= time_ago_in_words(category.updated_at) %> ago</td>
+        </tr>
+        <% end %>
+    </tbody>
+</table>
+
+<%= paginate @categories %>
+
+<% if logged_in? && current_user.admin? %>
+<p>
+    <%= link_to 'Create new category', new_category_path %>
+</p>
+<% end %>
